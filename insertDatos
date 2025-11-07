@@ -1,0 +1,129 @@
+//insert datos
+
+package tiendamanual;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import tiendamanual.Conexion.Conexion;
+
+public class insertDatos {
+
+    public static void main(String[] args) {
+        Conexion con = new Conexion();
+        Connection conn = con.getConexion();
+
+        if (conn == null) {
+            System.out.println("❌ No se pudo conectar a la base de datos");
+            return;
+        }
+
+        try {
+            String sqlCliente = "INSERT INTO Cliente (Nombres, Ape_Paterno, Ape_Materno, Ruc, RazonSocial, Telefono) VALUES (?, ?, ?, ?, ?, ?)";
+            PreparedStatement psCliente = conn.prepareStatement(sqlCliente);
+
+            psCliente.setString(1, "Juan");
+            psCliente.setString(2, "Pérez");
+            psCliente.setString(3, "Lopez");
+            psCliente.setString(4, "10456789012");
+            psCliente.setString(5, "PerezTech SAC");
+            psCliente.setString(6, "987654321");
+            psCliente.executeUpdate();
+
+            psCliente.setString(1, "Ana");
+            psCliente.setString(2, "Gomez");
+            psCliente.setString(3, "Rojas");
+            psCliente.setString(4, "20456789013");
+            psCliente.setString(5, "GomezConsulting");
+            psCliente.setString(6, "999111222");
+            psCliente.executeUpdate();
+
+            psCliente.setString(1, "Carlos");
+            psCliente.setString(2, "Fernandez");
+            psCliente.setString(3, "Vega");
+            psCliente.setString(4, "30456789014");
+            psCliente.setString(5, "CFV Solutions");
+            psCliente.setString(6, "955444777");
+            psCliente.executeUpdate();
+
+            psCliente.setString(1, "Luisa");
+            psCliente.setString(2, "Torres");
+            psCliente.setString(3, "Mendoza");
+            psCliente.setString(4, "40456789015");
+            psCliente.setString(5, "TorresMarket");
+            psCliente.setString(6, "911222333");
+            psCliente.executeUpdate();
+
+            psCliente.setString(1, "Pedro");
+            psCliente.setString(2, "Ruiz");
+            psCliente.setString(3, "Diaz");
+            psCliente.setString(4, "50456789016");
+            psCliente.setString(5, "RuizImport");
+            psCliente.setString(6, "922333444");
+            psCliente.executeUpdate();
+
+            System.out.println("✅ 5 registros insertados en Cliente");
+
+            String sqlTipoProd = "INSERT INTO TipoProducto (DescTipoProducto) VALUES (?)";
+            PreparedStatement psTipoProd = conn.prepareStatement(sqlTipoProd);
+
+            psTipoProd.setString(1, "Electrónicos");
+            psTipoProd.executeUpdate();
+
+            psTipoProd.setString(1, "Ropa");
+            psTipoProd.executeUpdate();
+
+            psTipoProd.setString(1, "Alimentos");
+            psTipoProd.executeUpdate();
+
+            psTipoProd.setString(1, "Juguetes");
+            psTipoProd.executeUpdate();
+
+            psTipoProd.setString(1, "Hogar");
+            psTipoProd.executeUpdate();
+
+            System.out.println("✅ 5 registros insertados en TipoProducto");
+
+            String sqlProd = "INSERT INTO Producto (DescProducto, Precio, Stock, CodTipoProducto) VALUES (?, ?, ?, ?)";
+            PreparedStatement psProd = conn.prepareStatement(sqlProd);
+
+            psProd.setString(1, "Televisor Samsung 50\"");
+            psProd.setDouble(2, 1800.50);
+            psProd.setInt(3, 10);
+            psProd.setInt(4, 1);
+            psProd.executeUpdate();
+
+            psProd.setString(1, "Polera Nike");
+            psProd.setDouble(2, 250.90);
+            psProd.setInt(3, 20);
+            psProd.setInt(4, 2);
+            psProd.executeUpdate();
+
+            psProd.setString(1, "Cereal Fitness");
+            psProd.setDouble(2, 15.60);
+            psProd.setInt(3, 50);
+            psProd.setInt(4, 3);
+            psProd.executeUpdate();
+
+            psProd.setString(1, "Muñeca Barbie");
+            psProd.setDouble(2, 85.00);
+            psProd.setInt(3, 30);
+            psProd.setInt(4, 4);
+            psProd.executeUpdate();
+
+            psProd.setString(1, "Silla de oficina");
+            psProd.setDouble(2, 350.00);
+            psProd.setInt(3, 15);
+            psProd.setInt(4, 5);
+            psProd.executeUpdate();
+
+            System.out.println("✅ 5 registros insertados en Producto");
+
+            conn.close();
+            System.out.println("✅ Inserción completada con éxito");
+
+        } catch (SQLException e) {
+            System.out.println("❌ Error al insertar datos: " + e.getMessage());
+        }
+    }
+}
